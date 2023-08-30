@@ -1,215 +1,56 @@
-@extends("layouts.DashboardLayout")
-@section("content")
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+@extends('layouts.DashboardLayout')
+@section('content')
 
-<form method="POST" enctype="multipart/form-data"  action="{{route('Consultations.store')}}" class="AjouterForm p-4  m-3" style="background-color: #fff;border-radius:5px" >
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    @csrf
-        <h3 class="text-center my-3" >Ajouter Consultation</h3>
-        <div class="row">
+@if (session('message'))
+<div class="alert alert-success mt-3 " role="alert">
+    {{session('message')}}
+  </div>
 
-            <div class="col-6">
-
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Numéro Consultation</label>
-                    <div class="d-flex" >
-                        <input required type="text"  name="NumeroConsultation" class="form-control" id="exampleFormControlInput1" >
-                        <button  type="button" class="btn btn-success"  id="generate" >
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-    <div class="col-6">
-
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Patient</label>
-            <select required name="patient_id"  id="patient" class="form-select " aria-label=".form-select-lg example">
-                <option value="" selected>Choisir Patient</option>
-                @foreach ($patients as $patient )
-                <option value="{{$patient->id}}">{{$patient->Nom}} - {{$patient->Prenom}} - {{$patient->Numero}} </option>
-                @endforeach
-              </select>
-        </div>
+@endif
+<div class="d-flex  justify-content-between  align-items-center p-2  my-2">
+    <div >
+      <h2>Patients</h2>
     </div>
+      <a  href="{{route('Consultations.create')}}" class="btn btn-danger  text-end " >Ajouter Consultation</a>
+  </div>
 
-    <div class="col-6">
+  <table  style="background-color: #fff;margin-bottom:0" class="table table-hover shadow-sm p-3 mb-5 bg-white rounded">
+    <thead>
+      <tr class="p-2  "  >
+        <th scope="col">NumeroConsultation</th>
+        <th scope="col">Objet</th>
+        <th scope="col">Observation</th>
+        <th scope="col">Date_consultation</th>
+        <th scope="col">TypeCosultation</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        @foreach ($consultations as $consulatation )
 
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Object</label>
-            <textarea required name="Objet" class="form-control" id="exampleTextarea" rows="4"></textarea>
-        </div>
-    </div>
+        <th scope="row">{{$consulatation->NumeroConsultation}}</th>
+        <td>{{$consulatation->Objet}}</td>
+        <td>{{$consulatation->Observation}}</td>
+        <td>{{$consulatation->Date_consultation}}</td>
+        <td>{{$consulatation->TypeCosultation}}</td>
+        <td>{{$consulatation->patient->CIN}} - {{$consulatation->patient->Nom}} </td>
 
-    <div class="col-6">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Observation</label>
-            <textarea required name="Observation" class="form-control" id="exampleTextarea" rows="4"></textarea>
-        </div>
-    </div>
-
-          <div class="col-6">
-
-              <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Type consultation</label>
-                  <select required name="TypeCosultation" id="operation" class="form-select " aria-label=".form-select-lg example">
-                    <option selected>Choisir Patient</option>
-                    <option value="Consultationgénéral ">Consultation général  </option>
-                    <option value="operation ">Une Opération  </option>
-                  </select>
-                </div>
-        </div>
-
-
-            <div class="col-6 hide  pmedcin ">
-                <label for="exampleFormControlInput1" class="form-label">Date </label>
-                <input required id="dateconsul"  type="date" name="Date_consultation"  required class="form-control" id="exampleFormControlInput1" >
+        <td>
+            <div class="d-flex  ">
+                <a  href="{{route('Consultations.edit',$consulatation->id)}}" class="btn me-1 btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
             </div>
+        </td>
+    </tr>
+    @endforeach
 
-            <div class="col-6 hide pdate">
-                <label for="exampleFormControlInput1" class="form-label">Time</label>
-            <select required class="form-select "  name="time" aria-label=".form-select-lg example">
-                <option selected>Choisir Time</option>
-              </select>
-             </div>
+    </tbody>
+</table>
+{{$consultations->links()}}
 
-
-            <div class="col-6 op hide">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Equipe</label>
-                    <div class="d-flex" >
-                    <select name="equipe_id" id="equipe" class="form-select " aria-label=".form-select-lg example">
-                        <option   selected>Choisir une Equipe</option>
-                        @foreach ($equipes as $equipe )
-                        <option value="{{$equipe->id}}"> - {{$equipe->nom}} </option>
-                        @endforeach
-                    </select>
-                    <button  type="button" class="btn btn-warning" ><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="col-6  op hide">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Bloc operation</label>
-                    <select name="blocoperation_id" class="form-select " aria-label=".form-select-lg example">
-                        <option selected>Choisir un Block</option>
-                        @foreach ($blocs as $bloc )
-                        <option value="{{$bloc->id}}"> - {{$bloc->id}} </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-12 einfo ">
-
-            </div>
-
-            <div class="col-6 op hide">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Date de Debut</label>
-                    <input  type="datetime-local" name="Prenom"   class="form-control" id="exampleFormControlInput1" >
-                </div>
-            </div>
-
-            <div class="col-6 op hide">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Date de Fin</label>
-                    <input  type="datetime-local" name="Prenom"   class="form-control" id="exampleFormControlInput1" >
-                </div>
-            </div>
-
-            <div class="mb-3 op hide">
-                <label for="exampleFormControlInput1" class="form-label">Operation observation</label>
-                <textarea   class="form-control" id="exampleTextarea" rows="4"></textarea>
-            </div>
-
-        </div>
-
-          <button type="submit" class="btn btn-danger ">Enregistrer</button>
-        </form>
-
-
-        <script>
-
-            let equipes ={{ Js::from($equipes)}}
-            let patients ={{ Js::from($patients)}}
-            let patientselect = document.querySelector('#patient')
-            let inputsdate = document.querySelectorAll('.pmedcin')
-            let pselect;
-            patientselect.onchange=(e)=>{
-                let idp = e.target.options[e.target.selectedIndex].value
-
-                if(idp){
-                     pselect = patients.find(e=>e.id==idp)
-                    inputsdate.forEach(item=>item.classList.remove('hide'))
-                }
-                else{
-                    inputsdate.forEach(item=>item.classList.add('hide'))
-                }
-            }
-
-
-
-
-
-
-
-
-            let btngenerer = document.querySelector('#generate')
-            btngenerer.onclick=(e)=>{
-                let data = ['A','B','C',1,2,3,'D','E','F','H','J',5,6,'K','L','M','V',4,,7,9]
-                let generatedvalue = data.sort(()=>0.3-Math.random()).splice(0,10).join('')
-                let input = e.target.closest('div').firstElementChild
-                input.value=generatedvalue
-            }
-
-
-            let operation = document.querySelector('#operation');
-            console.log(operation)
-            operation.onchange=(e=>{
-                console.log(e.target.options[e.target.selectedIndex].value)
-                let operationsInputs=document.querySelectorAll('.op')
-                if(e.target.options[e.target.selectedIndex].value.trim()=='operation'){
-                    operationsInputs.forEach(operation=>{operation.classList.remove('hide')
-                operation.setAttribute('required','required')
-                })
-
-                }
-                else{
-                operationsInputs.forEach(operation=>{operation.classList.add('hide')
-                operation.removeAttribute('required');
-            })
-                }
-            })
-
-
-            let equipe = document.querySelector('#equipe')
-            equipe.onchange=(e=>{
-                let idequipe = e.target.options[e.target.selectedIndex].value.trim()
-               let result =  equipes.find(eq=>eq.id==idequipe)
-               let targetdiv = e.target.closest('div').nextElementSibling
-               let medcin=[];
-               let infermiere=[];
-               let einfo = document.querySelector('.einfo')
-                result.equipemember.forEach(e=>{
-                if(e?.medecin){
-                    medcin.push(e.medecin)
-                }
-                if(e?.infermiere){
-                    infermiere.push(e.infermiere)
-                }
-               } )
-               einfo.innerHTML=`
-               <textarea readonly class='form-control' > ${medcin.map(e=>`- medcin : ${ e.Matricule } ${ e.Nom } `)} </textarea>
-               `
-
-            })
-        </script>
-        <script src="{{asset('js/CheckDate.js')}}"></script>
 
 @endsection

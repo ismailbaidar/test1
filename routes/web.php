@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('Patients',PatientController::class);
 Route::resource('Consultations',RendezVousController::class);
+Route::resource('calendar',RendezVousController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

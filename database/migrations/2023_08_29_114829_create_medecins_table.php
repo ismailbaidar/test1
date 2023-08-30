@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('Tarif');
             $table->string('Tel');
             $table->string('Email');
+            $table->foreignId('employe_id')->constrained();
             $table->timestamps();
         });
     }
