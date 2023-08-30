@@ -4,9 +4,17 @@
 <div class="DashbordMain  ">
 
 <div class="sidebar">
+    <div class="top-part">
+        <div class="avatar"></div>
+        <div class="name-job">
+            <span>name</span><span class="job">Doctor</span>
+        </div>
+
+    </div>
+    <div class="bottom-part">
     @can('patient')
     <a  href="/Patients" class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-head-side-cough"></i>
         <span class="name" > Patients</span>
     </a>
     @endcan
@@ -14,33 +22,33 @@
     @can('consultation')
 
     <a href="/Consultations"  class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-regular fa-calendar-check"></i>
         <span class="name" > Consultations</span>
     </a>
     @endcan
 
     <a href="/Medecin"  class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-user-doctor"></i>
         <span class="name" > Medecin</span>
     </a>
 
     @can('Admin')
 
     <a  href="/Roles"  class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-users"></i>
         <span class="name" > Roles</span>
     </a>
 
     <a  href="/Statistiques"  class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-chart-line"></i>
         <span class="name" > Statistiques</span>
     </a>
     <a  href="/Employe"  class="link">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-hospital-user"></i>
         <span class="name" > Employé</span>
     </a>
     @endcan
-
+</div>
 </div>
 
 <div class="WrapperAdmim">
