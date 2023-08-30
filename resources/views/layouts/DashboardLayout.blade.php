@@ -5,6 +5,7 @@
 <div class="DashbordMain  ">
 
 <div class="sidebar">
+    <div class="toggle"><i class="fa-solid fa-chevron-left"></i></div>
     <div class="top-part">
         <div class="avatar"></div>
         <div class="name-job">
@@ -85,3 +86,45 @@
 
 
 </div>
+
+<script>
+
+    const sidebar = document.querySelector(".sidebar")
+    const toggle = document.querySelector(".toggle")
+    const names = document.querySelectorAll(".name")
+    const nameJob = document.querySelector(".name-job")
+    const avatar = document.querySelector(".avatar")
+
+    console.log(names)
+    fullSize = true
+
+    toggle.addEventListener("click",()=>{
+
+        if(fullSize){
+            sidebar.style.width = "60px"
+            names.forEach(name=>{
+                console.log(name)
+                name.classList.toggle("hide")
+            })
+            avatar.style.width = "20px";
+            avatar.style.height = "20px";
+            toggle.innerHTML='<i class="fa-solid fa-chevron-right"></i>'
+
+        }else{
+            names.forEach(name=>{
+                console.log(name)
+                name.classList.toggle("hide")
+            })
+            sidebar.style.width="200px"
+            avatar.style.width = "40px";
+            avatar.style.height = "40px";
+            toggle.innerHTML='<i class="fa-solid fa-chevron-left"></i>'
+        }
+        nameJob.classList.toggle("hide")
+
+
+
+        fullSize = !fullSize
+    })
+
+</script>

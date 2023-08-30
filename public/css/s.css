@@ -15,7 +15,11 @@ a{
     width: 100%;
     background-color: #c2bdbd28;
 }
-
+.sidebar .toggle{
+    position: absolute;
+    right: 0;
+    padding: .25rem;
+}
 .sidebar {
     width: 20%;
     color: black   ;
@@ -38,6 +42,7 @@ a{
     font-size: .9rem;
     padding: .75rem 1rem;
 }
+
 .sidebar a:hover{
     background: #163dcd;
     color: white;
@@ -46,6 +51,7 @@ a{
     display: grid;
     grid-template-columns: 1fr 3fr;
     padding: 1rem;
+    justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
@@ -64,6 +70,12 @@ a{
 .sidebar .top-part  .name-job .job{
     font-size: .8rem;
 
+}
+.sidebar .bottom-part{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content:center;
 }
 .WrapperAdmim {
     padding: 20px;
@@ -106,7 +118,7 @@ a{
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .center {
@@ -142,4 +154,5 @@ input:checked[type="checkbox"]:before {
     width: 20px;
     border-color: rgb(24, 196, 24);
     transform: rotate(45deg) translate(5px, -10px);
+
 }
