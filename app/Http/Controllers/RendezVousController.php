@@ -11,6 +11,7 @@ use App\Models\Operation;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\Blocoperation;
+use App\Http\Resources\EventCollection;
 
 class RendezVousController extends Controller
 {
@@ -22,8 +23,17 @@ class RendezVousController extends Controller
         $employer=Employe::with('role')->where('user_id',request()->user()->id)->first();
         $medecin=Medecin::find($employer->id);
         if($medecin){
-            $consultations = Consultation::with(['patient','operation'])->get();
-        return view('ConsultationMedecin',compact('consultations'));
+            $cosultation = Consultation::all() ;
+            $events = [];
+            foreach($cosultation as $c){
+                $endDateTime = \Carbon\Carbon::parse($c->Date_consultation)->addMinutes(30);
+                $events[]=[
+                    'title'=>$c->Objet,
+                    'start'=>$c->Date_consultation,
+                    'end'=>$endDateTime
+                ];
+            }
+        return view('ConsultationMedecin',compact('events'));
         }
         $consultations = Consultation::with(['patient','operation'])->paginate(10);
         return view('Consultation',compact('consultations'));
