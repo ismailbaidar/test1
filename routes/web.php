@@ -22,10 +22,17 @@ Route::get('/', function () {
 
 Route::resource('Patients',PatientController::class);
 Route::resource('Consultations',RendezVousController::class);
+Route::get("result/{s}",function(){
+    return view("resultPage");
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
