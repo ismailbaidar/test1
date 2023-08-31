@@ -18,7 +18,7 @@
      <button class='show-modal' ><i class="fa-solid fa-plus"></i></button>
   </div>
   <div class="modal-holder hide" class>
-    
+
   <div class="modal-custom">
   <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
 <form method="POST" enctype="multipart/form-data"  action="{{route('Patients.store')}}" class="AjouterForm p-4  m-3" style="background-color: #fff;border-radius:5px" >
@@ -81,7 +81,7 @@
 </div>
   </div>
 <section>
-  
+
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -97,11 +97,11 @@
         <th>Action</th>
         </tr>
       </thead>
-    
+
   </div>
-  
-    
-      
+
+
+
       <tbody>
       <tr>
         @foreach ($patients as $patient )
@@ -114,19 +114,21 @@
         <td>{{$patient->Adresse}}</td>
         <td>{{$patient->Tel}}</td>
         <td>{{$patient->Email}}</td>
-        <td>
-                <button class="custom-button" >Rendez vous</button>
+        <td class="actions">
+                <button class="custom-button" ><i class="fa-solid fa-calendar-days"></i></button>
+
                 <a  href="{{route('Patients.edit',$patient->id)}}" class="custom-button" ><i class="fa-solid fa-pen-to-square"></i></a>
-                <button class="custom-button text-warning" ><i class="fa-solid fa-eye"></i></button></td>
-            
-      
+                <button class="custom-button text-warning" ><i class="fa-solid fa-eye"></i></button>
+        </td>
+
+
     </tr>
     @endforeach
 
-    
-       
+
+
       </tbody>
-      
+
     </table>
   </div>
 </section>
@@ -141,7 +143,7 @@ const showModal = document.querySelector(".show-modal")
 console.log(showModal)
 closeModalButton.addEventListener("click",()=>{
   modal.classList.add('hide')
-  
+
 })
 showModal.addEventListener('click',()=>{
   modal.classList.remove("hide")
