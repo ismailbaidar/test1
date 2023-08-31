@@ -5,8 +5,8 @@
     margin: 0;
     font-family: "Montserrat", Sans-serif;
 }
-a{
-    text-decoration: none;
+a {
+    text-decoration: none !important;
     color: inherit;
 }
 
@@ -15,14 +15,14 @@ a{
     width: 100%;
     background-color: #c2bdbd28;
 }
-.sidebar .toggle{
+.sidebar .toggle {
     position: absolute;
     right: 0;
-    padding: .25rem;
+    padding: 0.25rem;
 }
 .sidebar {
     width: 20%;
-    color: black   ;
+    color: black;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -37,13 +37,13 @@ a{
 
     top: 0;
 }
-.sidebar a{
+.sidebar a {
     color: black;
-    font-size: .9rem;
-    padding: .75rem 1rem;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
 }
 
-.sidebar a:hover{
+.sidebar a:hover {
     background: #163dcd;
     color: white;
 }
@@ -67,15 +67,14 @@ a{
     flex-direction: column;
     gap: 0.1rem;
 }
-.sidebar .top-part  .name-job .job{
-    font-size: .8rem;
-
+.sidebar .top-part .name-job .job {
+    font-size: 0.8rem;
 }
-.sidebar .bottom-part{
+.sidebar .bottom-part {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    align-content:center;
+    align-content: center;
 }
 .WrapperAdmim {
     padding: 20px;
@@ -154,5 +153,4 @@ input:checked[type="checkbox"]:before {
     width: 20px;
     border-color: rgb(24, 196, 24);
     transform: rotate(45deg) translate(5px, -10px);
-
 }
