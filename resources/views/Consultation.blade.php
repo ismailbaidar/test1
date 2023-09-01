@@ -12,12 +12,14 @@
 @endif
 <div class="d-flex  justify-content-between  align-items-center p-2  my-2">
     <div >
-      <h2>Patients</h2>
+        <h2>Consultation</h2>
     </div>
-      <a  href="{{route('Consultations.create')}}" class="btn btn-danger  text-end " >Ajouter Consultation</a>
-  </div>
+</div>
+@include('layouts.AjouterConsultation')
 
-  <table  style="background-color: #fff;margin-bottom:0" class="table table-hover shadow-sm p-3 mb-5 bg-white rounded">
+  <div class="tbl-header">
+    <button id="addconsultation" class=" btnAjouter show-modal"><i class="fa-solid fa-plus"></i></button>
+  <table cellpadding="0" cellspacing="0" border="0" >
     <thead>
       <tr class="p-2  "  >
         <th scope="col">NumeroConsultation</th>
@@ -51,6 +53,32 @@
     </tbody>
 </table>
 {{$consultations->links()}}
+</div>
+  <script>
+    const closeModalButtons = document.querySelectorAll(".close-modal")
+    const modals = document.querySelectorAll(".modal-holder")
+    const showModals = document.querySelectorAll(".show-modal")
 
+    closeModalButtons.forEach(close=>{
+        close.addEventListener("click",()=>{
+        modals.forEach(modal=>{
+            if(modal.id==close.id){
+                modal.classList.add('hide')
+            }
+        })
+
+    })})
+
+    showModals.forEach(showModal=>{
+        showModal.addEventListener('click',()=>{
+            console.log(showModal)
+            modals.forEach(modal=>{
+                if(modal.id==showModal.id){
+                    modal.classList.remove("hide")
+                }
+            })
+    })
+    })
+</script>
 
 @endsection

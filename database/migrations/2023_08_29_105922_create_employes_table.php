@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->id();
+            $table->string('Matricule')->nullable();
             $table->foreignId('role_id')->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('Nom');
+            $table->string('Prenom');
+            $table->string('specialite')->nullable();
+            $table->foreignId('service_id')->nullable()->constrained();
+            $table->float('Tarif')->nullable();
+            $table->string('Tel')->nullable();
+            $table->string('Email')->nullable();
             $table->timestamps();
         });
     }

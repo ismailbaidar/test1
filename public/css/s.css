@@ -10,6 +10,11 @@ a {
     color: inherit;
 }
 
+
+.btnAj{
+    background-color: #163dcd !important;
+}
+
 .DashbordMain {
     min-height: 100vh;
     width: 100%;

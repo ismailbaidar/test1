@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use App\Models\Roles;
 use App\Models\Equipe;
 use App\Models\Employe;
 use App\Models\Medecin;
@@ -11,6 +12,7 @@ use App\Models\Operation;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\Blocoperation;
+use Illuminate\Support\Carbon;
 use App\Http\Resources\EventCollection;
 
 class RendezVousController extends Controller
@@ -20,23 +22,24 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        $employer=Employe::with('role')->where('user_id',request()->user()->id)->first();
-        $medecin=Medecin::find($employer->id);
-        if($medecin){
+        $role = request()->user()->role_id;
+        if($role==Roles::MEDECIN){
             $cosultation = Consultation::all() ;
             $events = [];
             foreach($cosultation as $c){
-                $endDateTime = \Carbon\Carbon::parse($c->Date_consultation)->addMinutes(30);
-                $events[]=[
+                $endDateTime = Carbon::parse($c->Date_consultation)->addMinutes(30);                $events[]=[
                     'title'=>$c->Objet,
                     'start'=>$c->Date_consultation,
-                    'end'=>$endDateTime
+                    'end'=>$endDateTime->format('Y-m-d H:i:s')
                 ];
             }
         return view('ConsultationMedecin',compact('events'));
         }
-        $consultations = Consultation::with(['patient','operation'])->paginate(10);
-        return view('Consultation',compact('consultations'));
+        $consultations = Consultation::with(['patient','operation'])->paginate(5);
+        $patients = Patient::all();
+        $equipes = Equipe::all();
+        $blocs = Blocoperation::all();
+        return view('Consultation',compact('consultations','patients','equipes','blocs'));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
+use App\Models\Employe;
 use App\Models\Medecin;
 use App\Models\Patient;
 use Illuminate\Support\Str;
@@ -38,10 +40,10 @@ class PatientController extends Controller
         $data=$request->except(['_token','cinrecto','cinverso']);
         $data['cinrecto']=$cinrecto;
         $data['cinverso']=$cinverso;
-        $medecin = Medecin::withCount('patients')
+        $medecin = Employe::where('role_id',Roles::MEDECIN)->withCount('patients')
         ->orderBy('patients_count')
         ->first();
-        $data['medecin_id']=$medecin->id;
+        $data['employe_id']=$medecin->id;
         Patient::create($data);
         return to_route('Patients.index')->with('message','Patient bien cree');
     }

@@ -22,35 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('patient',function(){
-            $employer=Employe::with('role')->where('user_id',request()->user()->id)->first();
-            if($employer->role->role=='Infermiere' || $employer->role->role=='Assistante' || $employer->role->role=='Admin' ){
-                return true;
-            }
-            return false;
-        });
-
-        Gate::define('consultation',function(){
-            $employer=Employe::with('role')->where('user_id',request()->user()->id)->first();
-            if($employer->role->role=='Infermiere' || $employer->role->role=='Medecin'  || $employer->role->role=='Assistante' || $employer->role->role=='Admin' ){
-                return true;
-            }
-            return false;
-        });
-
-        Gate::define('Admin',function(){
-            $employer=Employe::with('role')->where('user_id',request()->user()->id)->first();
-            if($employer->role->role=='Admin' ){
-                return true;
-            }
-            return false;
-        });
-
-
-
-
-
-
         Paginator::useBootstrap();
     }
 }

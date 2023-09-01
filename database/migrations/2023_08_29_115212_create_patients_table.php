@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('Email');
             $table->string('cinrecto');
             $table->string('cinverso');
-            $table->foreignId('medecin_id')->constrained();
+            $table->foreignId('employe_id')->constrained();
             $table->timestamps();
         });
     }

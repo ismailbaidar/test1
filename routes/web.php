@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\RendezVousController;
 
 /*
@@ -23,6 +25,8 @@ Route::get('/', function () {
 Route::resource('Patients',PatientController::class);
 Route::resource('Consultations',RendezVousController::class);
 Route::resource('calendar',RendezVousController::class);
+Route::resource('Employe',EmployerController::class);
+Route::resource('Roles',RoleController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
