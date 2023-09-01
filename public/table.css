@@ -14,7 +14,7 @@ table {
     width: max-content;
 
     color: black;
-    margin-inline: auto;
+    
 }
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.3);
