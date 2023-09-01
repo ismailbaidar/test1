@@ -113,8 +113,9 @@
         <td>{{$patient->Adresse}}</td>
         <td>{{$patient->Tel}}</td>
         <td>{{$patient->Email}}</td>
-        <td>
-                <button class="custom-button" >Rendez vous</button>
+        <td class="actions">
+                <button class="custom-button" ><i class="fa-solid fa-calendar-days"></i></button>
+
                 <a  href="{{route('Patients.edit',$patient->id)}}" class="custom-button" ><i class="fa-solid fa-pen-to-square"></i></a>
                 <button class="custom-button text-warning" ><i class="fa-solid fa-eye"></i></button></td>
 
