@@ -19,22 +19,26 @@
 
     </div>
     <div class="bottom-part">
-    <a  href="/Patients" class="link">
+
+    @can('view-patient')
+    <a  @class(['link','active' => request()->is('Patients')])  href="/Patients" >
         <i class="fa-solid fa-head-side-cough"></i>
         <span class="name" > Patients</span>
     </a>
+    @endcan
 
-
+    @can('view-consultation')
     <a href="/Consultations"  class="link">
         <i class="fa-regular fa-calendar-check"></i>
         <span class="name" > Consultations</span>
     </a>
+    @endcan
 
-    <a href="/Medecin"  class="link">
-        <i class="fa-solid fa-user-doctor"></i>
-        <span class="name" > Medecin</span>
+    <a  href="/Employe"  class="link">
+        <i class="fa-solid fa-hospital-user"></i>
+        <span class="name" > Employé</span>
     </a>
-
+    @can('manage-employe')
 
     <a  href="/Roles"  class="link">
         <i class="fa-solid fa-users"></i>
@@ -45,10 +49,27 @@
         <i class="fa-solid fa-chart-line"></i>
         <span class="name" > Statistiques</span>
     </a>
-    <a  href="/Employe"  class="link">
-        <i class="fa-solid fa-hospital-user"></i>
-        <span class="name" > Employé</span>
+
+    <a  href="/Services"  class="link">
+        <i class="fa-solid fa-hospital"></i>
+        <span class="name" > Services</span>
     </a>
+
+    <a  href="/Logs"  class="link">
+        <i class="fa-solid fa-list"></i>
+        <span class="name" > Logs</span>
+    </a>
+
+    @endcan
+
+    @can('show-calender')
+    <a  href="/Calender"  class="link">
+        <i class="fa-regular fa-calendar-days"></i>
+        <span class="name" > Calender</span>
+    </a>
+    @endcan
+
+
 </div>
 </div>
 

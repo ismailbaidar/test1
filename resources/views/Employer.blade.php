@@ -58,7 +58,7 @@
             <select required id="role"  name="role_id" class="form-select " aria-label=".form-select-lg example">
                 <option value="" selected>Choisir un Role</option>
                 @foreach ($roles as $role )
-                <option value="{{$role->id}}">{{$role->role}}</option>
+                <option value="{{$role->id}}">{{$role->name}}</option>
                 @endforeach
             </select>
          </div>
@@ -148,7 +148,7 @@
                 {{$employe->Prenom}}
             </td>
             <td>
-                {{$employe->role->role}}
+                {{$employe->role->name}}
             </td>
             <td>
                 {{$employe->Tel}}

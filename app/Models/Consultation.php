@@ -21,7 +21,10 @@ class Consultation extends Model
         return $this->hasOne(Operation::class);
     }
 
-    
+    function log(){
+        return $this->morphMany(Log::class,'logable');
+    }
+
 
 
 }

@@ -6,9 +6,19 @@
 
 @if (session('message'))
 <div class="alert alert-success mt-3 " role="alert">
-    {{session('message')}}
-  </div>
-
+    <script>
+    setTimeout(function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Product Added',
+            text: 'The product has been added successfully!',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }, 1000);
+    </script>
 @endif
 <div class="d-flex  justify-content-between  align-items-center p-2  my-2">
     <div >
@@ -16,10 +26,14 @@
     </div>
 </div>
 @include('layouts.AjouterConsultation')
-
   <div class="tbl-header">
-    <button id="addconsultation" class=" btnAjouter show-modal"><i class="fa-solid fa-plus"></i></button>
-  <table cellpadding="0" cellspacing="0" border="0" >
+    @can('add-consultation')
+    <button id="item" type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#ajouterconsultation" >
+        <i class="fa-solid fa-plus"></i>
+    </button>
+    @endcan
+    
+      <table cellpadding="0" cellspacing="0" border="0" >
     <thead>
       <tr class="p-2  "  >
         <th scope="col">NumeroConsultation</th>
@@ -41,11 +55,13 @@
         <td>{{$consulatation->Date_consultation}}</td>
         <td>{{$consulatation->TypeCosultation}}</td>
         <td>{{$consulatation->patient->CIN}} - {{$consulatation->patient->Nom}} </td>
-
         <td>
-            <div class="d-flex  ">
-                <a  href="{{route('Consultations.edit',$consulatation->id)}}" class="btn me-1 btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-            </div>
+            @can('update', $consulatation)
+            <button type="button" class="btn btn-light " data-bs-toggle="modal" data-bs-target={{"#modifier".$consulatation->id}} >
+                <i    class="text-warning fa-solid fa-pen-to-square"></i>
+            </button>
+            @endcan
+            @include('layouts.modifierConsultation',['consultation'=>$consulatation,'equipes'=>$equipes,'patients'=>$patients])
         </td>
     </tr>
     @endforeach
@@ -54,31 +70,5 @@
 </table>
 {{$consultations->links()}}
 </div>
-  <script>
-    const closeModalButtons = document.querySelectorAll(".close-modal")
-    const modals = document.querySelectorAll(".modal-holder")
-    const showModals = document.querySelectorAll(".show-modal")
-
-    closeModalButtons.forEach(close=>{
-        close.addEventListener("click",()=>{
-        modals.forEach(modal=>{
-            if(modal.id==close.id){
-                modal.classList.add('hide')
-            }
-        })
-
-    })})
-
-    showModals.forEach(showModal=>{
-        showModal.addEventListener('click',()=>{
-            console.log(showModal)
-            modals.forEach(modal=>{
-                if(modal.id==showModal.id){
-                    modal.classList.remove("hide")
-                }
-            })
-    })
-    })
-</script>
 
 @endsection

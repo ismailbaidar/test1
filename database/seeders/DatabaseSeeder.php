@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Consultation;
 use App\Models\Patient;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Patient::factory(20)->create();
+            Consultation::factory(1500)->create();
+
     }
 }

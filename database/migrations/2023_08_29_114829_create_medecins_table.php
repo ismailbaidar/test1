@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('medecins', function (Blueprint $table) {
             $table->id();
-            $table->string('Matricule');
+           /*  $table->string('Matricule');
             $table->string('Nom');
             $table->string('Prenom');
             $table->string('specialite');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('Tel');
             $table->string('Email');
             $table->foreignId('employe_id')->constrained();
-            $table->timestamps();
+            $table->timestamps(); */
         });
     }
 

@@ -8,6 +8,7 @@ use App\Models\Employe;
 use App\Models\Service;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Mail\MailAcountInformations;
 use Illuminate\Support\Facades\Mail;
 
@@ -18,7 +19,7 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        $roles = Roles::all();
+        $roles = Role::all();
         $services = Service::all();
         $employes = Employe::with('role')->paginate(5);
         return view('Employer',compact('roles','services','employes'));
@@ -38,11 +39,13 @@ class EmployerController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        Employe::create($data);
+        $employer = Employe::create($data);
         if(in_array($request->role_id,Roles::ROLES)){
             $password = Str::random(8);
             $npassword = bcrypt($password);
-            $user = User::create(['name'=>$request->Nom,'email'=>$request->Email,'role_id'=>$request->role_id,'password'=>$password]);
+            $role = Role::find($request->role_id);
+            $user = User::create(['name'=>$request->Nom,'employe_id'=>$employer->id,'email'=>$request->Email,'role_id'=>$request->role_id,'password'=>$password]);
+            $user->assignRole($role);
             Mail::to($user->email)->send(new MailAcountInformations(['email'=>$user->email,'password'=>$password]));
         }
         return back()->with('success','Employer bien crée');
@@ -70,6 +73,12 @@ class EmployerController extends Controller
     public function update(Request $request, string $id)
     {
         $employe = Employe::find($id);
+        $id = ($employe->user->id);
+       $user = User::find($id);
+       ($user->update(['role_id'=>$request->role_id]));
+       $user->syncRoles([$request->role_id]);
+        $user->role_id=$request->role_id;
+        $user->save();
         $data = ($request->except('_token','_method'));
         $employe->update($data);
         return back()->with('success','employe birn modifier');

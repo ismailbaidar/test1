@@ -14,9 +14,13 @@
     <div >
       <h2>Patients</h2>
     </div>
+
+    @can('add-patient')
      <button type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#ajouterpatient" >
         <i class="fa-solid fa-plus"></i>
     </button>
+    @endcan
+
 </div>
 <div class="modal fade" id="ajouterpatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -114,9 +118,13 @@
         <td>{{$patient->Tel}}</td>
         <td>{{$patient->Email}}</td>
         <td class="actions">
-                <button class="custom-button" ><i class="fa-solid fa-calendar-days"></i></button>
-
+            @can('add-consultation')
+            <a   href="{{route('Consultations.index',['id'=>$patient->id])}}" class="custom-button" ><i class="fa-solid fa-calendar-days"></i></a>
+            @endcan
+                @can('update', $patient)
                 <a  href="{{route('Patients.edit',$patient->id)}}" class="custom-button" ><i class="fa-solid fa-pen-to-square"></i></a>
+                @endcan
+
                 <button class="custom-button text-warning" ><i class="fa-solid fa-eye"></i></button></td>
 
 

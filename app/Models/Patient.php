@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Employe;
 use App\Models\Medecin;
 use App\Models\Consultation;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ class Patient extends Model
     use HasFactory;
     protected $guarded=[];
     function medecin(){
-        return $this->belongsTo(Medecin::class);
+        return $this->belongsTo(Employe::class,'employe_id');
     }
 
     function consultations (){

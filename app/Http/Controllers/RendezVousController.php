@@ -22,21 +22,8 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        $role = request()->user()->role_id;
-        if($role==Roles::MEDECIN){
-            $cosultation = Consultation::all() ;
-            $events = [];
-            foreach($cosultation as $c){
-                $endDateTime = Carbon::parse($c->Date_consultation)->addMinutes(30);                $events[]=[
-                    'title'=>$c->Objet,
-                    'start'=>$c->Date_consultation,
-                    'end'=>$endDateTime->format('Y-m-d H:i:s')
-                ];
-            }
-        return view('ConsultationMedecin',compact('events'));
-        }
         $consultations = Consultation::with(['patient','operation'])->paginate(5);
-        $patients = Patient::all();
+        $patients = Patient::with('medecin.consultations')->get();
         $equipes = Equipe::all();
         $blocs = Blocoperation::all();
         return view('Consultation',compact('consultations','patients','equipes','blocs'));

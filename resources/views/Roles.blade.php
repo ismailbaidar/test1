@@ -3,7 +3,6 @@
 
 @if (session('success'))
 <script>
-    console.log('fff')
     setTimeout(function() {
                 Swal.fire({
                     icon: 'success',
@@ -36,7 +35,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Role</label>
-                        <input  type="text"  name="role"  required class="form-control" id="exampleFormControlInput1" >
+                        <input  type="text"  name="name"  required class="form-control" id="exampleFormControlInput1" >
                     </div>
                     <button class="btn btnAj btn-primary" style="width: 100%;background-color:#163dcd"  >Enregistrer</button>
                 </form>
@@ -58,7 +57,7 @@
     <tbody>
         @foreach ($roles as $role )
         <tr>
-            <td>{{$role->role}}</td>
+            <td>{{$role->name}}</td>
             <td>
                 <div class="btn btn-light"  data-bs-toggle="modal" data-bs-target={{"#modifier".$role->id}}><i class="fa-regular fa-pen-to-square"></i></div>
             </td>

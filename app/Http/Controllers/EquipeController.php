@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class EquipeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('Roles',compact('roles'));
+        //
     }
 
     /**
@@ -22,7 +19,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -30,8 +27,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->except('_token'));
-        return back()->with('success','Role bien Cree');
+        //
     }
 
     /**
@@ -55,9 +51,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::find($id);
-        $role->update($request->except('_token','_method'));
-        return back()->with('success','role bien modifier');
+        //
     }
 
     /**

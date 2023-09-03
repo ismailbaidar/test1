@@ -10,7 +10,7 @@
               <select required id="role"  name="role_id" class="form-select " aria-label=".form-select-lg example">
                   <option value="" selected>Choisir un Role</option>
                   @foreach ($roles as $role )
-                  <option  @selected($role->id==$employe->role_id) value="{{$role->id}}">{{$role->role}}</option>
+                  <option  @selected($role->id==$employe->role_id) value="{{$role->id}}">{{$role->name}}</option>
                   @endforeach
               </select>
            </div>

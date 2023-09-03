@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class ServicesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('Roles',compact('roles'));
+        $services = Service::paginate(6);
+        return view('Services',compact('services'));
     }
 
     /**
@@ -22,7 +21,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -30,8 +29,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->except('_token'));
-        return back()->with('success','Role bien Cree');
+        Service::create(['nom'=>$request->nom]);
+        return back()->with('success','Service bien cree');
     }
 
     /**
@@ -55,9 +54,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::find($id);
-        $role->update($request->except('_token','_method'));
-        return back()->with('success','role bien modifier');
+        $service = Service::find($id);
+        $service->update(['nom'=>$request->nom]);
+        return back()->with('success','Service bien modifier');
     }
 
     /**

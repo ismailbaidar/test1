@@ -8,7 +8,7 @@
                 @method('PATCH')
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Role</label>
-                    <input  type="text" value="{{$role->role}}" name="role"  required class="form-control" id="exampleFormControlInput1" >
+                    <input  type="text" value="{{$role->name}}" name="name"  required class="form-control" id="exampleFormControlInput1" >
                 </div>
                 <button class="btn btnAj btn-primary" style="width: 100%;background-color:#163dcd"  >Enregistrer</button>
             </form>
