@@ -9,8 +9,43 @@ a {
     text-decoration: none !important;
     color: inherit;
 }
+html{
+    background-color: #c2bdbd28;
+
+}
+.c-container{
+    max-width: 100%;
+    
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
 
 
+
+}
+.c-container-two{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    /* background-color: red; */
+    width: 100%;
+    /* background-color: blue; */
+    height: 120%;
+    justify-items:end;
+}
+.c-container-two:nth-child(2){
+    width: max-content;
+}
+canvas{
+    width: 100% !important;
+    height:100% !important;
+    /* height: 450px !important; */
+
+}
+canvas#pie,canvas#pie2{
+    width: 400px !important;
+    height: max-content !important;
+}
 .stateItems {
     display: flex;
     margin: 10px 0;
@@ -78,10 +113,12 @@ a {
 }
 
 .DashbordMain {
-    min-height: 100vh;
-    width: 100%;
-    background-color: #c2bdbd28;
+     width: 100%;
+
+
 }
+
+
 .sidebar .toggle {
     position: absolute;
     right: 0;
@@ -149,7 +186,9 @@ a {
     width: 75%;
     transition: all 0.6s ease;
     min-height: 100vh;
+
 }
+
 
 .link {
     display: flex;

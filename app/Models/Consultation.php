@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Log;
+use App\Models\Paiment;
 use App\Models\Patient;
 use App\Models\Operation;
 use App\Models\Blocoperation;
@@ -25,6 +26,8 @@ class Consultation extends Model
         return $this->morphMany(Log::class,'logable');
     }
 
-
+    function paiment(){
+        return $this->hasOne(Paiment::class);
+    }
 
 }

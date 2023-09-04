@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('operations', function (Blueprint $table) {
+        Schema::create('paiments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('consultation_id')->constrained();
-            $table->foreignId('equipe_id')->constrained();
-            $table->foreignId('blocoperatoire_id');
-            $table->dateTime('DateDebut');
-            $table->dateTime('DateFin');
-            $table->string('Observation');
+            $table->foreignId('typepaiment_id')->constrained();
+            $table->string('numerocheck')->nullable();
+            $table->date('date_demission')->nullable();
+            $table->enum('status',['Confirme','En Attent','Rejected']);
+            $table->date('date_depot')->nullable();
+            $table->string('transaction')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('operations');
+        Schema::dropIfExists('paiments');
     }
 };

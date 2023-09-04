@@ -25,6 +25,11 @@
         <i class="fa-solid fa-head-side-cough"></i>
         <span class="name" > Patients</span>
     </a>
+
+    <a  @class(['link','active' => request()->is('Paiments')])  href="/Paiments" >
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span class="name" > Paiments </span>
+    </a>
     @endcan
 
     @can('view-consultation')

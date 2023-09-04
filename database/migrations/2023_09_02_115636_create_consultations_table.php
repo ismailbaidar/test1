@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('NumeroConsultation');
             $table->string('Objet');
             $table->string('Observation');
-            $table->date('Date_consultation');
+            $table->dateTime('Date_consultation');
             $table->foreignId('patient_id')->constrained();
             $table->enum('TypeCosultation',['operation','Consultationgénéral']);
             $table->timestamps();

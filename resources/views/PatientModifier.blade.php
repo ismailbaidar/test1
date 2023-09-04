@@ -9,12 +9,12 @@
         <h3 class="text-center" >Modifier Patient</h3>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Numéro</label>
-            <input type="text" value="{{$patient->Numero}}"  required name="Numero" class="form-control" id="exampleFormControlInput1" >
+            <input  type="text" value="{{$patient->Numero}}"  required name="Numero" class="form-control" id="exampleFormControlInput1" >
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">CIN</label>
-            <input  type="text"  value="{{$patient->CIN}}" name="CIN"  required class="form-control" id="exampleFormControlInput1" >
+            <input type="text"  value="{{$patient->CIN}}" name="CIN"  required class="form-control" id="exampleFormControlInput1" >
           </div>
 
           <div class="mb-3">

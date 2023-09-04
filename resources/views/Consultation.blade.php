@@ -32,7 +32,7 @@
         <i class="fa-solid fa-plus"></i>
     </button>
     @endcan
-    
+
       <table cellpadding="0" cellspacing="0" border="0" >
     <thead>
       <tr class="p-2  "  >
@@ -57,10 +57,23 @@
         <td>{{$consulatation->patient->CIN}} - {{$consulatation->patient->Nom}} </td>
         <td>
             @can('update', $consulatation)
+
             <button type="button" class="btn btn-light " data-bs-toggle="modal" data-bs-target={{"#modifier".$consulatation->id}} >
                 <i    class="text-warning fa-solid fa-pen-to-square"></i>
             </button>
+
+            @if ($consulatation->paiment)
+            <a   href="{{route('print',$consulatation->id)}}"  class="btn btn-light "   >
+                <i class="fa-solid fa-print"></i>
+            </a>
+            @else
+            <button type="button" class="btn btn-light " data-bs-toggle="modal" data-bs-target={{"#Paiment".$consulatation->id}} >
+                <i class="fa-regular fa-credit-card"></i>
+            </button>
+            @endif
             @endcan
+
+            @include('layouts.AjouterPaiment',['consultation'=>$consulatation])
             @include('layouts.modifierConsultation',['consultation'=>$consulatation,'equipes'=>$equipes,'patients'=>$patients])
         </td>
     </tr>

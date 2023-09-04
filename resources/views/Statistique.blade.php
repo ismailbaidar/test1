@@ -73,9 +73,18 @@
 
 
 </div>
+            <div class="c-container">
+                <div class="c-container-two">
+                    <canvas  id="consultationsChart"  style='background-color:#fff;border-radius:10px' width="300" height="150"></canvas>
+                <canvas  id="incomesChart"  style='background-color:#fff;border-radius:10px' width="400" height="200"></canvas>
+                </div>
+                <div class="c-container-two">
+                    <canvas  id="Pie"  style='background-color:#fff;border-radius:10px' width="100" height="100"></canvas>
+                    <canvas  id="Pie2"  style='background-color:#fff;border-radius:10px' width="100" height="100"></canvas>
+                </div>
+            </div>
 
-
-    <canvas id="consultationsChart"  style='background-color:#fff;border-radius:10px' width="400" height="200"></canvas>
+    </div>
 
     <script>
         var data = @json($data);
@@ -140,4 +149,123 @@
             }
         });
     </script>
+
+
+
+
+
+<script>
+
+var serviceData = {!! $services !!};
+var labelsPie = serviceData.map(service => service.nom);
+var dataPie = serviceData.map(service => service.patients_count);
+
+var ctx = document.getElementById('Pie').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: labelsPie,
+        datasets: [{
+            data: dataPie,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+            ],
+        }],
+    },
+});
+
+// second pie
+var ctx = document.getElementById('Pie2').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: labelsPie,
+        datasets: [{
+            data: dataPie,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+            ],
+        }],
+    },
+});
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+    var data = @json($incomes);
+
+    var labels = data.map(function(item) {
+        return item.month;
+    });
+
+    var counts = data.map(function(item) {
+        return item.total_tarif;
+    });
+
+    var colors = [
+        '#3498db', // Light Blue
+'#2980b9', // Medium Blue
+'#1f618d', // Dark Blue
+'#2ecc71', // Light Green
+'#27ae60', // Medium Green
+'#229954', // Dark Green
+'#3498db', // Blue (Positive)
+'#e74c3c', // Red (Negative)
+'#3498db', // Light Blue
+'#2980b9', // Medium Blue
+'#1f618d', // Dark Blue
+'#3498db', // Blue (Category A)
+'#e67e22', // Orange (Category B)
+'#2ecc71', // Green (Category C)
+'#9b59b6', // Purple (Category D)
+    ];
+
+    var backgroundColors = colors.slice(0, data.length);
+
+    var ctx = document.getElementById('incomesChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'incoms par month',
+                data: counts,
+                backgroundColor: backgroundColors,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Count'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                }
+            }
+        }
+    });
+</script>
 @endsection

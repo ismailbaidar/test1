@@ -97,7 +97,7 @@
                     <select name="blocoperation_id" class="form-select " aria-label=".form-select-lg example">
                         <option selected>Choisir un Block</option>
                         @foreach ($blocs as $bloc )
-                        <option  @selected($consultation->operation->blocoperation_id==$bloc->id) value="{{$bloc->id}}"> - {{$bloc->id}} </option>
+                        <option  @selected($consultation?->operation?->blocoperation_id==$bloc->id) value="{{$bloc->id}}"> - {{$bloc->id}} </option>
                         @endforeach
                     </select>
                 </div>

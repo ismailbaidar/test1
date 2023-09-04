@@ -13,7 +13,9 @@ use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\Blocoperation;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\EventCollection;
+use App\Mail\RendezVousMail;
 
 class RendezVousController extends Controller
 {
@@ -22,7 +24,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        $consultations = Consultation::with(['patient','operation'])->paginate(5);
+        $consultations = Consultation::with(['patient.medecin','operation'])->paginate(5);
         $patients = Patient::with('medecin.consultations')->get();
         $equipes = Equipe::all();
         $blocs = Blocoperation::all();
@@ -73,6 +75,8 @@ class RendezVousController extends Controller
                 'consultation_id'=>$consultation->id
             ]);
         }
+        $patient = Patient::find($request->patient_id);
+        Mail::to($patient->Email)->send(new RendezVousMail($patient,$consultation));
         return back();
     }
 

@@ -8,6 +8,8 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\PaimentController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\StatiqtiqueController;
@@ -36,7 +38,17 @@ Route::middleware(['auth','RoleCheck:ADMIN,manage-employe'])->group(function(){
 });
 
     Route::resource('Patients',PatientController::class);
+    Route::post('Paiment',[PaimentController::class,'add'])->name('paiment');
+    Route::get('Paiments',[PaimentController::class,'index'])->name('paiments');
+    Route::get('print/{id}',[PrintController::class,'print'])->name('print');
+
+    Route::post('Valider/{id}',[PaimentController::class,'confirmer'])->name('validate');
+    Route::post('Reject/{id}',[PaimentController::class,'reject'])->name('reject');
+
+    
+
     Route::resource('Consultations',RendezVousController::class);
+
 
 Route::middleware(['auth','RoleCheck:MEDECIN,show-calender'])->group(function(){
     Route::get('Calender',[CalenderController::class,'index']);

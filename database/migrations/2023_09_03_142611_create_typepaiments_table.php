@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('operations', function (Blueprint $table) {
+        Schema::create('typepaiments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('consultation_id')->constrained();
-            $table->foreignId('equipe_id')->constrained();
-            $table->foreignId('blocoperatoire_id');
-            $table->dateTime('DateDebut');
-            $table->dateTime('DateFin');
-            $table->string('Observation');
+            $table->string('typepaiment');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('operations');
+        Schema::dropIfExists('typepaiments');
     }
 };
