@@ -30,10 +30,10 @@ Route::get('/', function () {
 Route::resource('Employe',EmployerController::class);
 Route::middleware(['auth','RoleCheck:ADMIN,manage-employe'])->group(function(){
     Route::resource('Roles',RoleController::class);
-    Route::resource('Services',ServicesController::class);
     Route::get('Logs',[LogController::class,'index']);
     Route::get('Statistiques',[StatiqtiqueController::class,'index']);
 });
+Route::resource('Services',ServicesController::class);
 
     Route::resource('Patients',PatientController::class);
     Route::resource('Consultations',RendezVousController::class);
@@ -45,6 +45,15 @@ Route::middleware(['auth','RoleCheck:MEDECIN,show-calender'])->group(function(){
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get("consultationResult",function(){
+    return view("consultationResultPage");
+});
+
+
+Route::get("result",function(){
+    return view("resultPage");
+});
 
 
 

@@ -10,16 +10,21 @@
   </div>
 
 @endif
+@push("search")
+  <form action="">
+    <input type="text" placeholder="search">
+  </form>
+@endpush
 <div class="d-flex  justify-content-between  align-items-center p-2  my-2">
     <div >
       <h2>Patients</h2>
     </div>
 
-    @can('add-patient')
+    {{-- @can('add-patient') --}}
      <button type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#ajouterpatient" >
         <i class="fa-solid fa-plus"></i>
     </button>
-    @endcan
+    {{-- @endcan --}}
 
 </div>
 <div class="modal fade" id="ajouterpatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

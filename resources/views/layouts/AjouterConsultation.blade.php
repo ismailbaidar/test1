@@ -75,17 +75,18 @@
                      </div>
 
 
-                    <div class="col-6 operationInputs hide">
+                    <div class="col-12 operationInputs hide">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Equipe</label>
-                            <div class="d-flex" >
-                            <select name="equipe_id" id="equipeAjouter" class="form-select " aria-label=".form-select-lg example">
-                                <option   selected>Choisir une Equipe</option>
-                                @foreach ($equipes as $equipe )
-                                <option value="{{$equipe->id}}"> - {{$equipe->nom}} </option>
-                                @endforeach
-                            </select>
-                            <button  type="button" class="btn btn-warning" ><i class="fa-solid fa-plus"></i></button>
+                            <div class="search-wrapper">
+                                <div class="selected">result</div>
+                                <input type="text" class="search-field">
+                                <ul class="result" style="height: 150px;
+                                overflow-y: scroll;
+                                padding-top: 190px;" ></ul>
+                                <div class="selected-team ">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,6 +149,54 @@
     var patientselect = document.querySelector('#patientAjouter')
     var inputsdate = document.querySelectorAll('.pmedcinAjouter')
     var pselect;
+    let result = document.querySelector(".result")
+    let searchField = document.querySelector(".search-field")
+    let searchwrapper = document.querySelector(".search-wrapper")
+    let resultItems = document.querySelectorAll(".role")
+    let info = [{role:"Medecin",employees:[{"id":1,'name':"ibn ta2hiliya"},{"id":1,'name':"ibn ta2hiliya"},{"id":1,'name':"ibn ta2hiliya"},{"id":1,'name':"ibn ta2hiliya"},{"id":1,'name':"ibn ta2hiliya"},{"id":2,"name":'kho ibn ta2hiliya'}]},{role:"Assistant",employees:[{id:3,name:"ibn ta2hiliya"},{id:4,name:'some'}]}]
+
+
+    draw();
+    console.log(info)
+
+    searchField.addEventListener("focus",()=>{
+        console.log("hello")
+        result.style.display = "flex"
+    })
+
+    document.addEventListener('click',(e)=>{
+        console.log(e.target.closest('div'))
+        if(!e.target.closest('div').classList.contains('search-wrapper')){
+            result.blur();
+            result.style.display='none'
+        }
+    })
+
+    searchwrapper.addEventListener('click',()=>{
+        searchField.focus();
+    })
+
+    result.addEventListener("click",()=>{
+        console.log("bye")
+        result.style.display = "flex"
+        searchField.focus()
+    })
+
+
+
+
+    resultItems.forEach(resultItem=>{
+        resultItem.addEventListener("click",()=>{
+            console.log(resultItem.textContent)
+        })
+    })
+
+    searchField.addEventListener('change',(item)=>{
+      let p= info.map(e=>e.employees.filter(i=>i.name.includes(item.target.value)))
+    })
+
+
+
     patientselect.onchange=(e)=>{
         var idp = e.target.options[e.target.selectedIndex].value
 
@@ -161,7 +210,23 @@
     }
 
 
+    function draw(){
 
+        
+        info.forEach(role=>{
+        console.log(role.role)
+        result.innerHTML += `<li class="role">
+                                        <span class="role-name">${role.role}</span>
+
+                                        <ul class="names">
+                                                `+
+                                                role.employees.map(e=>"<li class='name'>"+e.name+"</li>").join("")
+                                                +`
+                                        </ul>
+                                        
+                                        </li>`
+                                    })
+    }
 
 
 
@@ -195,26 +260,29 @@
     })
 
 
-    var equipe = document.querySelector('#equipeAjouter')
-    equipe.onchange=(e=>{
-        var idequipe = e.target.options[e.target.selectedIndex].value.trim()
-       var result =  equipes.find(eq=>eq.id==idequipe)
-       var targetdiv = e.target.closest('div').nextElementSibling
-       var medcin=[];
-       var infermiere=[];
-       var einfo = document.querySelector('.einfoAjouter')
-        result.equipemember.forEach(e=>{
-        if(e?.medecin){
-            medcin.push(e.medecin)
-        }
-        if(e?.infermiere){
-            infermiere.push(e.infermiere)
-        }
-       } )
-       einfo.innerHTML=`
-       <textarea readonly class='form-control' > ${medcin.map(e=>`- medcin : ${ e.Matricule } ${ e.Nom } `)} </textarea>
-       `
+    // var equipe = document.querySelector('#equipeAjouter')
+    // equipe.onchange=(e=>{
+    //     var idequipe = e.target.options[e.target.selectedIndex].value.trim()
+    //    var result =  equipes.find(eq=>eq.id==idequipe)
+    //    var targetdiv = e.target.closest('div').nextElementSibling
+    //    var medcin=[];
+    //    var infermiere=[];
+    //    var einfo = document.querySelector('.einfoAjouter')
+    //     result.equipemember.forEach(e=>{
+    //     if(e?.medecin){
+    //         medcin.push(e.medecin)
+    //     }
+    //     if(e?.infermiere){
+    //         infermiere.push(e.infermiere)
+    //     }
+    //    } )
+    //    einfo.innerHTML=`
+    //    <textarea readonly class='form-control' > ${medcin.map(e=>`- medcin : ${ e.Matricule } ${ e.Nom } `)} </textarea>
+    //    `
 
-    })
+    // })
+
+
+
 </script>
 <script src="{{asset('js/CheckDate.js')}}"></script>

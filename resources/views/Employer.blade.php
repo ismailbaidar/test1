@@ -49,8 +49,8 @@
     <button type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-solid fa-plus"></i></button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-      <form method="POST" enctype="multipart/form-data"  action="{{route('Employe.store')}}" class="AjouterForm p-1  m-3" style="background-color: #fff;border-radius:5px" >
+          <div class="modal-content container">
+      <form method="POST" enctype="multipart/form-data"  action="{{route('Employe.store')}}" class="AjouterForm p-4  m-3" style="background-color: #fff;border-radius:5px" >
           @csrf
 
           <div class="mb-2">
@@ -148,7 +148,10 @@
                 {{$employe->Prenom}}
             </td>
             <td>
-                {{$employe->role->name}}
+                <span class="role {{ $employe->role->name=='MEDECIN'?'MEDECIN-CARD':$employe->role->name}}">
+
+                    {{$employe->role->name}}
+                </span>
             </td>
             <td>
                 {{$employe->Tel}}

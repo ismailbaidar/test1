@@ -10,17 +10,21 @@ a {
     color: inherit;
 }
 
+li {
+    list-style: none;
+    color: black;
+}
 
 .stateItems {
     display: flex;
     margin: 10px 0;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap:10px ;
+    gap: 10px;
 }
 
 .ItemsStateComponent {
-    flex:1 ;
+    flex: 1;
     padding: 5px 10px;
     background-color: #fff;
     border-radius: 6px;
@@ -30,12 +34,38 @@ a {
     min-width: 250px;
 }
 
-
-
-
 .H-ItemsStateComponent {
     display: flex;
     justify-content: space-between;
+}
+
+.search-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.result {
+    padding: 0;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    font-size: .95rem;
+
+
+}
+
+
+
+
+
+
+
+.result-item {
+    padding: 0.5rem 0.75rem;
+    display: block;
 }
 
 
@@ -46,8 +76,66 @@ a {
     color: #646060;
 }
 
+.role {
 
+    padding: 5px 8px;
 
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: max-content;
+    gap: 0.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.role-name{
+
+    color: darkgray;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.names{
+
+    width: 100%;
+    padding: 0 7px;
+    padding: 0;
+    display: block;
+    font-size: 500;
+    font-size: .85rem;
+}
+.result .name{
+    font-size: .8rem;
+    padding: .5rem .75rem;
+    font-weight: 400;
+
+}
+.result li{
+    width: 100%;
+}
+.name:hover{
+    background: lightgray;
+}
+
+.ADMIN {
+    background: #ebf9eb;
+    color: #84d784;
+}
+.ASSISTANT {
+    background-color: #fdebeb;
+    color: #f16262;
+}
+
+.MEDECIN-CARD {
+    background-color: #fef8e8;
+    color: #f4c746;
+}
+
+.INFERMIER {
+    color: #8282ff;
+    background-color: #cce5ff;
+}
 
 .C-ItemsStateComponent {
     display: flex;
@@ -55,14 +143,11 @@ a {
     align-items: center;
 }
 
-
-
 .T-ItemsStateComponent {
     font-size: 35px;
     font-weight: 400;
     padding: 5px;
 }
-
 
 .I-ItemsStateComponent {
     color: #fff;
@@ -70,10 +155,7 @@ a {
     padding: 3px;
 }
 
-
-
-
-.btnAj{
+.btnAj {
     background-color: #163dcd !important;
 }
 
@@ -85,7 +167,19 @@ a {
 .sidebar .toggle {
     position: absolute;
     right: 0;
+    background: #163dcd;
+    color: white;
+    translate: 50%;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
     padding: 0.25rem;
+    border: 1px solid #163dcd;
 }
 .sidebar {
     width: 20%;
@@ -109,10 +203,16 @@ a {
     font-size: 0.9rem;
     padding: 0.75rem 1rem;
 }
+.sidebar-links {
+    display: grid;
+    gap: 0.25rem;
+}
 
-.sidebar a:hover {
+.sidebar a:hover:not(.logout),
+.active {
     background: #163dcd;
-    color: white;
+    color: white !important;
+    border: 1px solid #163dcd;
 }
 .sidebar .top-part {
     display: grid;
@@ -141,7 +241,9 @@ a {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    align-content: center;
+    padding-block: 1rem;
+    align-content: space-between;
+    height: 100%;
 }
 .WrapperAdmim {
     padding: 20px;
@@ -150,17 +252,37 @@ a {
     transition: all 0.6s ease;
     min-height: 100vh;
 }
+form {
+    width: 100%;
+}
 
-.link {
+form .logout {
+    display: flex;
+    gap: 10px;
+    color: white !important;
+    padding: 10px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    background-color: #163dcd;
+    width: 100%;
+    align-items: center;
+}
+form .logout:hover {
+    border: 1px solid #d33;
+    background: white;
+    color: #d33 !important;
+}
+.link:not(.logout) {
     display: flex;
     gap: 10px;
     color: #6e6868;
     padding: 10px;
     border-radius: 7px;
+    border: 1px solid transparent;
 }
 
 .navigation_bar {
-    background-color: #fff;
+    background: white;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -171,6 +293,10 @@ a {
 }
 
 .InputSearch {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
 }
 .InputSearch input {
     border: none;
@@ -220,4 +346,20 @@ input:checked[type="checkbox"]:before {
     width: 20px;
     border-color: rgb(24, 196, 24);
     transform: rotate(45deg) translate(5px, -10px);
+}
+
+.medecin-patient {
+    padding: 0.5rem 0.75rem;
+    border: none;
+}
+
+.consultation-modal {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+.consultation-modal div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
