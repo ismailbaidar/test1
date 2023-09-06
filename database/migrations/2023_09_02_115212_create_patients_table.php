@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('Numero');
-            $table->string('CIN');
+            $table->string('CIN')->unique();
             $table->string('Nom');
             $table->string('Prenom');
             $table->string('Adresse');
-            $table->string('Tel');
-            $table->string('Email');
-            $table->string('cinrecto');
-            $table->string('cinverso');
-            $table->foreignId('employe_id')->constrained();
+            $table->string('Tel')->unique();
+            $table->string('Email')->unique();
+            $table->string('cinrecto')->nullable();
+            $table->string('cinverso')->nullable();
+            $table->foreignId('employe_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -11,12 +11,12 @@ class ConsultationObserver
      */
     public function created(Consultation $consultation): void
     {
-  /*       $user = request()->user();
+         $user = request()->user();
         $role = $user->role->name;
-        $consultation->log()->create(['message'=>"Consultation $consultation->id est cree par  $user->id  - $user->name - $role ",'user_id'=>$user->id]); */
+        $consultation->log()->create(['message'=>"Consultation $consultation->id est cree par  $user->id  - $user->name - $role ",'user_id'=>$user->id]);
     }
 
-    /**
+    /**F
      * Handle the consultation "updated" event.
      */
     public function updated(Consultation $consultation): void

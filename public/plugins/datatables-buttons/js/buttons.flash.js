@@ -91,7 +91,7 @@ var ZeroClipboard_TableTools = {
 	},
 
 	log: function ( str ) {
-		console.log( 'Flash: '+str );
+		( 'Flash: '+str );
 	},
 
 	register: function(id, client) {

@@ -4,62 +4,96 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-@if (session('message'))
+
+
+{{-- @if (session('success'))
+<script>
+    setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success Message',
+                    text: "{{$session('success')}}"",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }, 500);
+</script>
+@endif --}}
+
+
+
+{{-- @if (session('message'))
 <div class="alert alert-success mt-3 " role="alert">
     {{session('message')}}
   </div>
 
 @endif
-<div class="d-flex  justify-content-between  align-items-center p-2  my-2">
-    <div >
-      <h2>Patients</h2>
-    </div>
+ --}}
 
-    @can('add-patient')
-     <button type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#ajouterpatient" >
+
+
+@push("search")
+  <form action="">
+    <input type="text" placeholder="search">
+  </form>
+@endpush
+<div class="d-flex  justify-content-between  align-items-center p-2  my-2">
+
+     @can('add-patient')
+     <button id="zer" type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#ajouterpatient" >
         <i class="fa-solid fa-plus"></i>
     </button>
-    @endcan
+     @endcan
 
 </div>
 <div class="modal fade" id="ajouterpatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="POST" enctype="multipart/form-data"  action="{{route('Patients.store')}}" class="AjouterForm p-4  m-3" style="background-color: #fff;border-radius:5px" >
+        <div class="modal-content  p-4 ">
+            <form method="POST" enctype="multipart/form-data"  action="{{route('Patients.store')}}" class="AjouterForm" style="background-color: #fff;border-radius:5px" >
     @csrf
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Numéro</label>
-            <input type="text"  required name="Numero" class="form-control" id="exampleFormControlInput1" >
-          </div>
+    <div class="col-12 ">
+    <label for="exampleFormControlInput1" class="form-label">Medecin</label>
+    <select required class="form-select form-select-sm" name="employe_id" >
+        <option value="">Choisir Medecin</option>
+        @foreach ($medecins as $medecin)
+        <option value="{{$medecin->id}}">{{$medecin->Matricule}} - {{$medecin->Nom}}</option>
+        @endforeach
+      </select>
+     </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">CIN</label>
-            <input  type="text" name="CIN"  required class="form-control" id="exampleFormControlInput1" >
+            <input  type="text"  value="{{old('CIN')}}" name="CIN"  required class="form-control form-control-sm " id="exampleFormControlInput1" >
+            <p class="text-danger" >@error('CIN') {{$message}} @enderror</p>
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nom</label>
-            <input  type="text" name="Nom" required class="form-control" id="exampleFormControlInput1" >
+            <input  type="text" name="Nom"  value="{{old('Nom')}}" required class="form-control  form-control-sm" id="exampleFormControlInput1" >
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Prenom</label>
-            <input  type="text" name="Prenom"  required class="form-control" id="exampleFormControlInput1" >
+            <input  type="text" name="Prenom"  value="{{old('Prenom')}}" required class="form-control  form-control-sm" id="exampleFormControlInput1" >
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Adresse</label>
-            <input  type="text" name="Adresse"  required class="form-control" id="exampleFormControlInput1" >
+            <input  type="text" name="Adresse" value="{{old('Adresse')}}"  required class="form-control  form-control-sm" id="exampleFormControlInput1" >
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tel</label>
-            <input  type="text" name="Tel"  required class="form-control" id="exampleFormControlInput1" >
+            <input  type="text" name="Tel" value="{{old('Tel')}}"  required class="form-control form-control-sm" id="exampleFormControlInput1" >
+            <p class="text-danger" >@error('Tel') {{$message}} @enderror</p>
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input  type="email" name="Email"  required class="form-control" id="exampleFormControlInput1" >
+            <input  type="email" name="Email" value="{{old('Email')}}" required class="form-control form-control-sm" id="exampleFormControlInput1" >
+            <p class="text-danger" >@error('Email') {{$message}} @enderror</p>
           </div>
           <div class="row mb-1 ">
             <div class="col-6" class="cin">
@@ -88,9 +122,8 @@
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr>
+        <tr  style="background-color: #ececec;"  >
         <th>#</th>
-        <th>Numéro</th>
         <th>CIN</th>
         <th>Nom</th>
         <th>Prenom</th>
@@ -110,7 +143,6 @@
         @foreach ($patients as $patient )
 
         <th>{{$patient->id}}</th>
-        <td>{{$patient->Numero}}</td>
         <td>{{$patient->CIN}}</td>
         <td>{{$patient->Nom}}</td>
         <td>{{$patient->Prenom}}</td>
@@ -118,16 +150,10 @@
         <td>{{$patient->Tel}}</td>
         <td>{{$patient->Email}}</td>
         <td class="actions">
-            @can('add-consultation')
-            <a   href="{{route('Consultations.index',['id'=>$patient->id])}}" class="custom-button" ><i class="fa-solid fa-calendar-days"></i></a>
-            @endcan
                 @can('update', $patient)
-                <a  href="{{route('Patients.edit',$patient->id)}}" class="custom-button" ><i class="fa-solid fa-pen-to-square"></i></a>
+                <button data-bs-toggle="modal" data-bs-target="#modifier{{$patient->id}}" class="custom-button" ><i class="fa-solid fa-pen-to-square"></i></button>
+                @include('layouts.ModifierPatient',['patient'=>$patient])
                 @endcan
-
-                <button class="custom-button text-warning" ><i class="fa-solid fa-eye"></i></button></td>
-
-
     </tr>
     @endforeach
 
@@ -136,12 +162,77 @@
       </tbody>
 
     </table>
+    {{$patients->links()}}
+
   </div>
 </section>
 
 
 
 </table>
+
+
+@if ($errors->any())
+<script>
+    let ppp = document.querySelector('#zer');
+    (ppp)
+    ppp.click();
+</script>
+@endif
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('form').on('submit', function(event) {
+            event.preventDefault();
+
+            var form = $(this);
+            var formData = new FormData(form[0]);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    (response);
+                },
+                error: function(xhr, status, error) {
+                    var errors = JSON.parse(xhr.responseText);
+                    (errors);
+                    $('.mb-3 p.text-danger').remove();
+                    $.each(errors.errors, function(key, value) {
+                         $('[name="' + key + '"]').closest('.mb-3').append('<p class="text-danger">' + value[0] + '</p>');
+                    });
+                }
+            });
+        });
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 const closeModalButtons = document.querySelectorAll(".close-modal")
 const modals = document.querySelectorAll(".modal-holder")
@@ -159,7 +250,7 @@ closeModalButtons.forEach(close=>{
 
 showModals.forEach(showModal=>{
     showModal.addEventListener('click',()=>{
-        console.log(showModal)
+        (showModal)
         modals.forEach(modal=>{
             if(modal.id==showModal.id){
                 modal.classList.remove("hide")
@@ -169,7 +260,7 @@ showModals.forEach(showModal=>{
 })
 
 let files = document.querySelectorAll('input[type="file"]')
-            console.log(files)
+            (files)
             files.forEach(file=>file.onchange=(e)=>{
                 let url = URL.createObjectURL(e.target.files[0])
                 let thumb = file.closest('div').querySelector('#ll')
@@ -180,6 +271,5 @@ let files = document.querySelectorAll('input[type="file"]')
     })
 
 </script>
-{{$patients->links()}}
 
 @endsection

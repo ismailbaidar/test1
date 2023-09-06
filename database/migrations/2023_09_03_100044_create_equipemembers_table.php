@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('equipemembers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipe_id')->nullable()->constrained();
-            $table->foreignId('medecin_id')->nullable()->constrained();
-            $table->foreignId('infermier_id')->nullable()->constrained();
+            $table->foreignId('equipe_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('employe_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

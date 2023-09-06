@@ -48,7 +48,7 @@
 
     <table cellpadding="0" cellspacing="0" border="0">
         <thead>
-          <tr>
+          <tr style="background-color: #ececec;"  >
           <th>Role</th>
           <th>Action</th>
           </tr>

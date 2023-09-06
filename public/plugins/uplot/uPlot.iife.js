@@ -44,7 +44,7 @@ var uPlot = (function () {
 	}
 
 	function getMinMax(data, _i0, _i1, sorted) {
-	//	console.log("getMinMax()");
+	//	("getMinMax()");
 
 		let _min = inf;
 		let _max = -inf;
@@ -70,7 +70,7 @@ var uPlot = (function () {
 	}
 
 	function getMinMaxLog(data, _i0, _i1) {
-	//	console.log("getMinMax()");
+	//	("getMinMax()");
 
 		let _min = inf;
 		let _max = -inf;
@@ -1011,7 +1011,7 @@ var uPlot = (function () {
 	genIncrs(2, -53, 53, [1]);
 
 	/*
-	console.log({
+	({
 		decIncrs,
 		oneIncrs,
 		wholeIncrs,

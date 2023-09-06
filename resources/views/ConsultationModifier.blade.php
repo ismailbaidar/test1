@@ -192,7 +192,7 @@
 
 
             operation.onchange=(e=>{
-                console.log(e.target.options[e.target.selectedIndex].value)
+                (e.target.options[e.target.selectedIndex].value)
                 let operationsInputs=document.querySelectorAll('.op')
                 if(e.target.options[e.target.selectedIndex].value.trim()=='operation'){
                     operationsInputs.forEach(operation=>{operation.classList.remove('hide')

@@ -71,20 +71,79 @@
         </div>
     </div>
 
+    <div class='ItemsStateComponent' >
+        <div class='H-ItemsStateComponent' >
+        <span class='NameState' >Total paid</span>
+        </div>
+        <div class='C-ItemsStateComponent' >
+        <div class='T-ItemsStateComponent' >{{$totalpaid}} DH</div>
+        <div class='I-ItemsStateComponent bg-primary '  ><i class="fa-solid text-light fa-user"></i></div>
+        </div>
+    </div>
+
+    <div class='ItemsStateComponent' >
+        <div class='H-ItemsStateComponent' >
+        <span class='NameState' >Total not paid</span>
+        </div>
+        <div class='C-ItemsStateComponent' >
+        <div class='T-ItemsStateComponent' >{{$totalnotpaid}} DH</div>
+        <div class='I-ItemsStateComponent bg-primary '  ><i class="fa-solid text-light fa-user"></i></div>
+        </div>
+    </div>
+
 
 </div>
             <div class="c-container">
                 <div class="c-container-two">
                     <canvas  id="consultationsChart"  style='background-color:#fff;border-radius:10px' width="300" height="150"></canvas>
-                <canvas  id="incomesChart"  style='background-color:#fff;border-radius:10px' width="400" height="200"></canvas>
+                    <canvas  id="paymentsChart"  style='background-color:#fff;border-radius:10px' width="400" height="200"></canvas>
                 </div>
                 <div class="c-container-two">
                     <canvas  id="Pie"  style='background-color:#fff;border-radius:10px' width="100" height="100"></canvas>
-                    <canvas  id="Pie2"  style='background-color:#fff;border-radius:10px' width="100" height="100"></canvas>
                 </div>
             </div>
 
     </div>
+
+
+    <script>
+        var ctx = document.getElementById('paymentsChart').getContext('2d');
+
+        var paymentsData = @json($incomes);
+
+        var labels = paymentsData.map(function(item) {
+            return item.year + '-' + ('0' + item.month).slice(-2);
+        });
+
+        var data = paymentsData.map(function(item) {
+            return item.total_payment;
+        });
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Payment',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+
 
     <script>
         var data = @json($data);

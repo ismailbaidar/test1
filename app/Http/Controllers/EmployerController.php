@@ -38,8 +38,10 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
-        $employer = Employe::create($data);
+        if($request->validate(['Email'=>'unique:users,email','Tel'=>'unique:employes,Tel'])){
+
+            $data = $request->except('_token');
+            $employer = Employe::create($data);
         if(in_array($request->role_id,Roles::ROLES)){
             $password = Str::random(8);
             $npassword = bcrypt($password);
@@ -48,7 +50,9 @@ class EmployerController extends Controller
             $user->assignRole($role);
             Mail::to($user->email)->send(new MailAcountInformations(['email'=>$user->email,'password'=>$password]));
         }
-        return back()->with('success','Employer bien crée');
+        return response()->json(['success'=>'Employer bien crée']);
+    }
+    return response()->json(['errors' => $request->validator->errors()], 422);
     }
 
     /**
@@ -72,6 +76,8 @@ class EmployerController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if($request->validate(['Email'=>"unique:users,email,$id",'Tel'=>"unique:employes,Tel,$id"])){
+
         $employe = Employe::find($id);
         $id = ($employe->user->id);
        $user = User::find($id);
@@ -82,6 +88,8 @@ class EmployerController extends Controller
         $data = ($request->except('_token','_method'));
         $employe->update($data);
         return back()->with('success','employe birn modifier');
+        }
+        return response()->json(['errors' => $request->validator->errors()], 422);
     }
 
     /**

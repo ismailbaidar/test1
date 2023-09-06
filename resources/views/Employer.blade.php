@@ -22,12 +22,12 @@
 
 @if (session('success'))
 <script>
-    console.log('fff')
+    ('fff')
     setTimeout(function() {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Product Added',
-                    text: 'The product has been added successfully!',
+                    title: 'Message success',
+                    text: "{{session('success')}}",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -41,17 +41,17 @@
 
 
 
-<div class="m-4">
-    <h3>Employes</h3>
-</div>
 
-<div class="tbl-header">
+<div class="tbl-header  mt-4">
     <button type="button" class="btn btn-primary btnAjouter" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-solid fa-plus"></i></button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-      <form method="POST" enctype="multipart/form-data"  action="{{route('Employe.store')}}" class="AjouterForm p-1  m-3" style="background-color: #fff;border-radius:5px" >
+          <div class="modal-content  p-3 container">
+      <form method="POST" enctype="multipart/form-data"  action="{{route('Employe.store')}}" class="AjouterForm " style="background-color: #fff;border-radius:5px" >
           @csrf
+
+          <div class='error-message'>
+          </div>
 
           <div class="mb-2">
             <label  for="exampleFormControlInput1" class="form-label">Role</label>
@@ -89,7 +89,7 @@
             <div class="mb-2">
                 <label for="exampleFormControlInput1" class="form-label">Services</label>
                 <select   name="service_id" class="form-select " aria-label=".form-select-lg example">
-                    <option value="" >Choisir un Role</option>
+                    <option value="" >Choisir un Services</option>
                     @foreach ($services as $service )
                     <option value="{{$service->id}}">{{$service->nom}}</option>
                     @endforeach
@@ -120,7 +120,7 @@
     </div>
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr>
+        <tr  style="background-color: #ececec;">
         <th>Name</th>
         <th>Prenom</th>
         <th>Type</th>
@@ -148,7 +148,10 @@
                 {{$employe->Prenom}}
             </td>
             <td>
-                {{$employe->role->name}}
+                <span class="role {{ $employe->role->name=='MEDECIN'?'MEDECIN-CARD':$employe->role->name}}">
+
+                    {{$employe->role->name}}
+                </span>
             </td>
             <td>
                 {{$employe->Tel}}
@@ -169,15 +172,12 @@
 <script src="{{asset('js/employer.js')}}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Select all delete buttons
         const deleteButtons = document.querySelectorAll('.delete-article');
 
-        // Loop through each delete button
         deleteButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const employe = this.getAttribute('data-id');
 
-                // Show SweetAlert confirmation dialog
                 Swal.fire({
                     title: 'Are you sure?',
                     text: 'You won\'t be able to revert this!',
@@ -188,10 +188,8 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // If user confirms, perform the delete action
                         fetch(`/Employe/${employe}`,{method:'DELETE',withCredentials:'include',headers:{'X-CSRF-TOKEN':document.querySelector('input[name="_token"]').value}})
                              .then(response => {
-                                 // Show a success alert
                                  Swal.fire(
                                      'Deleted!',
                                      'Your article has been deleted.',
@@ -202,7 +200,6 @@
 
                              })
                              .catch(error => {
-                                 // Handle errors
                                  Swal.fire(
                                      'Error!',
                                      'An error occurred while deleting the article.',
@@ -215,5 +212,49 @@
         });
     });
 </script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.AjouterForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "{{ route('Employe.store') }}",
+                method: "POST",
+                data: formData,
+                success: function(response) {
+                    (response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    $('.error-message').html('')
+                    (xhr.responseText);
+                    var errors = JSON.parse(xhr.responseText);
+                    (errors)
+                    $.each(errors.errors, function(key, value) {
+                        $('.error-message').html('')
+                        $('.error-message').append(`<p class='text-danger'>${value}</p>`);
+                        });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
 
 @endsection

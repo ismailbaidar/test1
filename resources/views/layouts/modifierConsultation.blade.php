@@ -1,7 +1,7 @@
 <div class="modal   fade" id={{"modifier".$consultation->id}} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-<form method="POST " enctype="multipart/form-data"  id={{"item".$consultation->id}} action="{{route('Consultations.update',$consultation->id)}}" class="AjouterForm p-4  m-3" style="background-color: #fff;border-radius:5px" >
+        <div class="modal-content p-3 ">
+<form method="POST" enctype="multipart/form-data"  id={{"item".$consultation->id}} action="{{route('Consultations.update',$consultation->id)}}" class="AjouterForm" style="background-color: #fff;border-radius:5px" >
     @method("PUT")
     @csrf
         <div class="row">
@@ -35,14 +35,14 @@
 
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Object</label>
-            <textarea  required name="Objet" class="form-control" id="exampleTextarea" rows="4">{{$consultation->Objet}}</textarea>
+            <input  required name="Objet" class="form-control" id="exampleTextarea" value="{{$consultation->Objet}}" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Observation</label>
-            <textarea required name="Observation" class="form-control" id="exampleTextarea" rows="4">{{$consultation->Observation}}</textarea>
+            <input required name="Observation" class="form-control" id="exampleTextarea" value="{{$consultation->Observation}}" />
         </div>
     </div>
 
@@ -61,7 +61,7 @@
 
             <div class="col-6 hide  pmedcinm ">
                 <label for="exampleFormControlInput1" class="form-label">Date </label>
-                <input required id="dateconsul"  type="date" name="Date_consultation"  required class="form-control" id="exampleFormControlInput1" >
+                <input required id="dateconsul"   type="date" name="Date_consultation"  required class="form-control" id="exampleFormControlInput1" >
             </div>
 
             <div class="col-6 hide pdate">
@@ -73,33 +73,36 @@
 
 
 
-            <div class="col-6 op hide">
+             <div class="col-12 op hide">
+                <label for="exampleFormControlInput1" class="form-label">Equipe</label>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Equipe</label>
-                    <div class="d-flex" >
-                    <select name="equipe_id" id="equipe" class="form-select " aria-label=".form-select-lg example">
-                        <option   selected>Choisir une Equipe</option>
-                        @foreach ($equipes as $equipe )
-                        <option @selected($consultation?->operation?->equipe_id==$equipe->id) value="{{$equipe?->id}}"> - {{$equipe?->nom}} </option>
-                        @endforeach
+                    <select  class="form-select form-select-sm" name="equipe[]" id=""  width='100%' multiple  >
+                        <optgroup label="Medecins">
+                            @foreach ($medecins as $medecin)
+                            <option   @selected($consultation?->operation?->equipe?->equipemember?->pluck('employe_id')->contains($medecin->id))  value="{{ $medecin->id }}">{{ $medecin->Matricule .''. $medecin->Nom }}</option>
+                            @endforeach
+                        </optgroup>
+                        <optgroup label="Assistants">
+                            @foreach ($Assistants as $assistant)
+                            <option   @selected($consultation?->operation?->equipe?->equipemember?->pluck('employe_id')->contains($assistant->id))  value="{{ $assistant->id }}">{{ $assistant->Nom }}</option>
+                            @endforeach
+                        </optgroup>
+                        <optgroup label="Infermiers">
+                            @foreach ($infermiers as $infermier)
+                            <option   @selected($consultation?->operation?->equipe?->equipemember?->pluck('employe_id')->contains($infermier->id))  value="{{ $infermier->id }}">{{  $infermier->Nom }}</option>
+                            @endforeach
+                        </optgroup>
                     </select>
-                    <button  type="button" class="btn btn-warning" ><i class="fa-solid fa-plus"></i></button>
-                    </div>
                 </div>
             </div>
 
 
-
-
+{{--             {{json_encode($consultation)}}
+ --}}
             <div class="col-6  op hide">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Bloc operation</label>
-                    <select name="blocoperation_id" class="form-select " aria-label=".form-select-lg example">
-                        <option selected>Choisir un Block</option>
-                        @foreach ($blocs as $bloc )
-                        <option  @selected($consultation?->operation?->blocoperation_id==$bloc->id) value="{{$bloc->id}}"> - {{$bloc->id}} </option>
-                        @endforeach
-                    </select>
+                    <input  value="{{$consultation?->operation?->blocoperatoire}}" type="text" name="blocoperatoire"   class="form-control" id="exampleFormControlInput1" >
                 </div>
             </div>
 
@@ -123,10 +126,10 @@
 
             <div class="mb-3 op hide">
                 <label for="exampleFormControlInput1" class="form-label">Operation observation</label>
-                <textarea name="ObservationOperation"  class="form-control" id="exampleTextarea" rows="4">{{$consultation?->operation?->Observation}}</textarea>
+                <input name="ObservationOperation"  class="form-control" id="exampleTextarea" value="{{$consultation?->operation?->Observation}}"/>
             </div>
         </div>
-          <button type="submit" class="btn btn-danger ">Enregistrer</button>
+          <button type="submit" class="btn btn-primary  col-12 btnAj ">Enregistrer</button>
         </form>
         </div>
     </div>
@@ -141,10 +144,10 @@
          <script>
              var equipesm ={{ Js::from($equipes)}}
              var datem ={{ Js::from($consultation->Date_consultation)}}
-             console.log(datem);
+             (datem);
             var patientsm ={{ Js::from($patients)}}
             var patientselectm = document.querySelectorAll('#patientm')
-            console.log(patientselectm);
+            (patientselectm);
             var inputsdatem = document.querySelectorAll('.pmedcinm')
 
             var pselect;

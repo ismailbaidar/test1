@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('Objet');
             $table->string('Observation');
             $table->dateTime('Date_consultation');
-            $table->foreignId('patient_id')->constrained();
+            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->enum('TypeCosultation',['operation','Consultationgénéral']);
             $table->timestamps();
         });

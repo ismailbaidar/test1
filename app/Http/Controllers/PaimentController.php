@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class PaimentController extends Controller
 {
-    
+
    function add(Request $request){
     $data = $request->except('_token');
-    if(in_array($request->typepaiment,[2,3])){
-        $data['status']=2;
+    if(in_array( (int) $request->typepaiment_id,[2,3])){
+        $data['status']='En Attent';
         Paiment::create($data);
     }
     Paiment::create($data);

@@ -3,7 +3,7 @@
 <div class=" mt-5 tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
         <thead>
-          <tr>
+          <tr   style="background-color: #ececec;" >
           <th>Paiment ID</th>
           <th>Montant</th>
           <th>Type</th>

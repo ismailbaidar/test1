@@ -69,4 +69,40 @@
     </div>
 </div>
 </div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+    var errors = JSON.parse(xhr.responseText);
+    $.each(errors.errors, function (key, value) {
+        var errorMessage = $('<p class="text-danger"></p>').text(value[0]);
+        var inputField = $('[name="' + key + '"]');
+        inputField.closest('.mb-2').find('.text-danger').remove(); // Remove existing error messages
+        inputField.closest('.mb-2').append(errorMessage);
+    });
+}
+
+            });
+        });
+    });
+</script>
+
+
+
+
 <script src="{{asset('js/modifieremployer.js')}}"></script>

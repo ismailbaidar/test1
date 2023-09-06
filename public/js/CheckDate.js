@@ -27,7 +27,7 @@
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   });
 
-  console.log(formattedAvailableTimeSlots)
+  (formattedAvailableTimeSlots)
   time.querySelector('select').innerHTML=''
   formattedAvailableTimeSlots.map(slot=>{
     let option = document.createElement('option')

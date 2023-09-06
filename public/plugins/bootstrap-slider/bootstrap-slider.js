@@ -1,5 +1,5 @@
 /*! =======================================================
-                      VERSION  11.0.2              
+                      VERSION  11.0.2
 ========================================================= */
 "use strict";
 
@@ -74,8 +74,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 	if (windowIsDefined && !window.console) {
 		window.console = {};
 	}
-	if (windowIsDefined && !window.console.log) {
-		window.console.log = function () {};
+	if (windowIsDefined && !window.) {
+		window. = function () {};
 	}
 	if (windowIsDefined && !window.console.warn) {
 		window.console.warn = function () {};

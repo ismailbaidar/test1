@@ -16,8 +16,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients = Patient::paginate(6);
-     return view('Patients',compact('patients'));
+        $patients = Patient::paginate(5);
+        $medecins = Employe::whereRoleId(4)->get();
+     return view('Patients',compact('patients','medecins'));
     }
 
     /**
@@ -33,19 +34,25 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        $cinverso = Str::random(7).'.'.$request->file('cinrecto')->getClientOriginalExtension();
-        $cinrecto = Str::random(7).'.'.$request->file('cinverso')->getClientOriginalExtension();
+        if($request->validate(['CIN'=>"required|unique:patients,CIN",'Nom'=>'required','Prenom'=>'required','Adresse'=>'required','Tel'=>['required','unique:patients,Tel'],'Email'=>['required','unique:patients,Email']])){
+
+        $cinrecto='';
+        $cinverso='';
+        if($request->filled('cinrecto')){
+            $cinrecto = Str::random(7).'.'.$request->file('cinverso')->getClientOriginalExtension();
+        }
+        if($request->filled('cinverso')){
+            $cinverso = Str::random(7).'.'.$request->file('cinrecto')->getClientOriginalExtension();
+        }
         $request->file('cinrecto')->storeAs('pics/',$cinrecto,'public');
         $request->file('cinverso')->storeAs('pics/',$cinverso,'public');
         $data=$request->except(['_token','cinrecto','cinverso']);
         $data['cinrecto']=$cinrecto;
         $data['cinverso']=$cinverso;
-        $medecin = Employe::where('role_id',Roles::MEDECIN)->withCount('patients')
-        ->orderBy('patients_count')
-        ->first();
-        $data['employe_id']=$medecin->id;
         Patient::create($data);
-        return to_route('Patients.index')->with('message','Patient bien cree');
+        return to_route('Patients.index')->with('success','Patient bien cree');
+    }
+    return to_route('Consultations.index')->withInput();
     }
 
     /**
@@ -71,6 +78,8 @@ class PatientController extends Controller
     public function update(Request $request, string $id)
     {
         $patient=Patient::find($id);
+        if($request->validate(['CIN'=>"required|unique:patients,CIN,$id",'Tel'=>"required|unique:patients,Tel,$id",'Email'=>"required|unique:patients,Email,$id"])){
+
         if($request->filled('cinrecto')){
             $cinrecto = Str::random(7).'.'.$request->file('cinverso')->getClientOriginalExtension();
             $request->file('cinrecto')->storeAs('pics/',$cinrecto,'public');
@@ -84,6 +93,8 @@ class PatientController extends Controller
         $data['cinverso']=$cinverso ?? $patient->cinverso ;
         $patient->update($data);
         return to_route('Patients.index')->with('message','Patient bien modifier');
+    }
+    return to_route('Consultations.index')->withInput();
     }
 
     /**

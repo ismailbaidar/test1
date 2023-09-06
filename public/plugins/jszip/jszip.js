@@ -3460,8 +3460,8 @@ exports.prepareContent = function(name, inputData, isBinary, isOptimizedBinarySt
 
     // if inputData is already a promise, this flatten it.
     var promise = external.Promise.resolve(inputData).then(function(data) {
-        
-        
+
+
         var isBlob = support.blob && (data instanceof Blob || ['[object File]', '[object Blob]'].indexOf(Object.prototype.toString.call(data)) !== -1);
 
         if (isBlob && typeof FileReader !== "undefined") {
@@ -4686,7 +4686,7 @@ var Z_DEFLATED  = 8;
  *
  * if (deflate.err) { throw new Error(deflate.err); }
  *
- * console.log(deflate.result);
+ * (deflate.result);
  * ```
  **/
 function Deflate(options) {
@@ -4921,7 +4921,7 @@ Deflate.prototype.onEnd = function (status) {
  * var pako = require('pako')
  *   , data = Uint8Array([1,2,3,4,5,6,7,8,9]);
  *
- * console.log(pako.deflate(data));
+ * (pako.deflate(data));
  * ```
  **/
 function deflate(input, options) {
@@ -5061,7 +5061,7 @@ var toString = Object.prototype.toString;
  *
  * if (inflate.err) { throw new Error(inflate.err); }
  *
- * console.log(inflate.result);
+ * (inflate.result);
  * ```
  **/
 function Inflate(options) {
@@ -5345,7 +5345,7 @@ Inflate.prototype.onEnd = function (status) {
  * try {
  *   output = pako.inflate(input);
  * } catch (err)
- *   console.log(err);
+ *   (err);
  * }
  * ```
  **/

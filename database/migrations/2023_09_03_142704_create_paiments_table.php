@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('paiments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('consultation_id')->constrained();
-            $table->foreignId('typepaiment_id')->constrained();
+            $table->foreignId('consultation_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('typepaiment_id')->constrained()->onUpdate('cascade');
             $table->string('numerocheck')->nullable();
             $table->date('date_demission')->nullable();
             $table->enum('status',['Confirme','En Attent','Rejected']);
             $table->date('date_depot')->nullable();
             $table->string('transaction')->nullable();
+            $table->float('Montant');
             $table->timestamps();
         });
     }

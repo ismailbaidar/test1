@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Equipemember extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+
     public function infermiere(){
         return $this->belongsTo(Infermier::class);
     }

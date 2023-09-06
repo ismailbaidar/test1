@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('consultation_id')->constrained();
-            $table->foreignId('equipe_id')->constrained();
-            $table->foreignId('blocoperatoire_id');
+            $table->foreignId('consultation_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('equipe_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('blocoperatoire');
             $table->dateTime('DateDebut');
             $table->dateTime('DateFin');
             $table->string('Observation');

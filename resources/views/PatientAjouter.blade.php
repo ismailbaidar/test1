@@ -62,7 +62,7 @@
 
         <script>
             let files = document.querySelectorAll('input[type="file"]')
-            console.log(files)
+            (files)
             files.forEach(file=>file.onchange=(e)=>{
                 let url = URL.createObjectURL(e.target.files[0])
                 let thumb = file.closest('div').querySelector('#ll')

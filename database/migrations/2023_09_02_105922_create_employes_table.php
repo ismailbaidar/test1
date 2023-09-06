@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('Nom');
             $table->string('Prenom');
             $table->string('specialite')->nullable();
-            $table->foreignId('service_id')->nullable()->constrained();
+            $table->foreignId('service_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->float('Tarif')->nullable();
-            $table->string('Tel')->nullable();
-            $table->string('Email')->nullable();
+            $table->string('Tel')->unique()->nullable();
+            $table->string('Email')->unique()->nullable();
             $table->timestamps();
         });
     }

@@ -76,7 +76,7 @@
 var select = document.querySelectorAll('#paimenttype');
 select.forEach(element => {
         element.onchange=(e)=>{
-            console.log(element.value)
+            (element.value)
             e.target.closest('.modal-content').querySelectorAll('.Pai').forEach(d=>d.classList.add('hide'));
             e.target.closest('.modal-content').querySelectorAll('.Pai').forEach(d=>d.querySelector('input').removeAttribute('required'));
             if(element.value=='3'){

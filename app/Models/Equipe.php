@@ -12,4 +12,6 @@ class Equipe extends Model
     function equipemember(){
         return $this->hasMany(Equipemember::class);
     }
+
+    protected $guarded=[];
 }

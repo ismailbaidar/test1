@@ -8,10 +8,12 @@
 
 
 <div class="content">
-    
+
     <div class="filters">
-        <span>
-        Filters:
+        <form action="">
+
+            <span>
+                Filters:
         <select name="type" id="type">
             <option value="all">
                 All
@@ -22,54 +24,48 @@
             <option value="medecin">
                 Medecin
             </option>
-            <option value="consultations">
-                Consultations
-            </option>
+
         </select>
     </span>
-
-        <div class="date-filter hide" >
-           from <input type="date" name="" id="">to<input type="date" name="" id="">
-        </div>
+    <button  >Filter</button>
+</form>
     </div>
     <div class="result">
 
+        @if (count($employes)==0 && count($patients)==0)
+            <h1>Ya pas de resultat</h1>
+        @endif
+
+        @foreach ($employes as $employe )
         <div class="peopleCard">
             <div class="avatar-info">
 
                 <div class="avatar"></div>
                 <div class="info">
-                    <span>Name</span>
-                    <span class="job">Medecin</span>
+                    <span>{{$employe->Nom }}  {{$employe->Prenom}}</span>
+                    <span class="job">{{$employe->role->name}}</span>
                 </div>
             </div>
             <span>details</span>
         </div>
+        @endforeach
+
+        @foreach ( $patients as $patient )
         <div class="peopleCard">
             <div class="avatar-info">
 
                 <div class="avatar"></div>
                 <div class="info">
-                    <span>Name</span>
+                    <span>{{$patient->Nom}}</span>
                     <span class="job">Patient</span>
                 </div>
             </div>
             <span>details</span>
         </div>
-        <div class="consultation">
-            <div class="avatar-info">
-
-                <div class="avatar"></div>
-                <div class="info">
-                    <span>Name</span>
-                    <span>Consultation géneral</span>
-                    <span class="job">11:00AM-11:30AM</span>
-                </div>
-            </div>
-            <span>details</span>
+        @endforeach
 
 
-        </div>
+
     </div>
 
 </div>
@@ -78,7 +74,7 @@
     const dateFilter = document.querySelector(".date-filter")
 
     select.addEventListener("change",()=>{
-        console.log(select.value)
+        (select.value)
         if(select.value==="consultations"){
             dateFilter.classList.remove("hide")
 
